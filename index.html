@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Калькулятор ЗП</title>
+</head>
+<body>
+
+    <div class="wrapper">
+        <form class="form">
+            <input 
+            required
+            class="current-date" 
+            type="date" 
+            >
+            <!-- Выручка -->
+            <fieldset class="income">
+                <label for="income-today">Выручка за день:</label>
+                <input 
+                    value="50500"
+                    required
+                    min="0" 
+                    type="number" 
+                    id="income-today">
+            </fieldset>
+    
+            <!-- Ср чек -->
+            <fieldset class="average-check">
+    
+                <span class="condition-question">
+                    Средний чек больше 450р?
+                </span>
+    
+                <div class="radio-main">
+                    <label class="radio-label">
+                        <input 
+                        checked
+                            type="radio" 
+                            name="check-radio-main" 
+                            class="check-radio"
+                            id="radio-false">
+                        Нет
+                    </label>
+                    <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="check-radio-main" 
+                            class="check-radio"
+                            id="radio-true">
+                        Да
+                    </label>
+                </div>
+                
+    
+                <div class="radio-optional hidden">
+                    <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="check-radio-optional" 
+                            class="check-radio"
+                            id="radio-optional-low">
+                        &#60 500
+                    </label>
+                    <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="check-radio-optional" 
+                            class="check-radio"
+                            id="radio-optional-mid">
+                        501 — 550
+                    </label>
+                    <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="check-radio-optional" 
+                            class="check-radio"
+                            id="radio-optional-high">
+                            &#62 550
+                    </label>
+                </div>
+            </fieldset>
+    
+            <!-- Отзывы -->
+            <fieldset class="feedbacks">
+                <label class="" for="feedbacks-input">
+                    Количество отзывов:
+                </label>
+                <div class="input-container">
+                    <button class="adjust-btn" type="button" id="decrease-btn">-</button>
+                    <input 
+                        value="0"
+                        min="0" 
+                        type="number" 
+                        class="feedbacks-input"
+                        id="feedbacks-input">
+                    <button class="adjust-btn" type="button" id="increase-btn">+</button>
+                </div>
+            </fieldset>
+            
+            <button class="submit" type="submit">Расчитать и сохранить</button>
+        </form>
+        <div class="salary-today">
+            <span class="salary-text">
+            </span>
+            <span class="salary-value">
+            </span>
+        </div>
+        <button>GET</button>
+    </div>
+    
+    <script src="/scripts/script.js"></script>
+</body>
+</html>

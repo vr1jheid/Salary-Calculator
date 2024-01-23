@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2.5rem;
+}
+
+input {
+  text-align: right;
+}
+
+fieldset {
+  /*     border: none; */
+  padding: 10px 15px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.wrapper {
+  width: 390px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  border: 1px solid black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.current-date {
+  width: 160px;
+  margin: 0 auto;
+}
+
+.income {
+  display: flex;
+  justify-content: space-between;
+}
+.income input {
+  width: 30%;
+  margin-left: 30px;
+}
+
+.average-check {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.average-check .radio-main {
+  display: flex;
+  justify-content: space-around;
+}
+.average-check .radio-optional {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedbacks {
+  display: flex;
+  flex-direction: column;
+}
+.feedbacks .input-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+.feedbacks .input-container input {
+  width: 60px;
+  margin: 0 30px;
+}
+
+.salary-today {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+}/*# sourceMappingURL=styles.css.map */
