@@ -1,13 +1,6 @@
-const obj = {
-    name: "sanya",
-    day: {
-        revenue: 3000,
-    },
-    logs: {
-        count: 3,
-    }
-}
+const arr = [1,2,3,4,5];
 
-const {name, ...newObj} = obj;
-
-console.log(newObj);
+arr.forEach( e => {
+    if (e === 4) return;
+    console.log(e);
+})

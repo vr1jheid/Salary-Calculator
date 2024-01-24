@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -27,59 +28,129 @@ fieldset {
   width: 390px;
   margin: 0 auto;
   padding: 20px 10px;
+  padding-top: 50px;
   border: 1px solid black;
+  background-color: rgb(178, 178, 202);
 }
 
-.form {
+.form-main {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-
-.current-date {
-  width: 160px;
-  margin: 0 auto;
-}
-
-.income {
+.form-main .income {
   display: flex;
   justify-content: space-between;
 }
-.income input {
+.form-main .income input {
   width: 30%;
   margin-left: 30px;
 }
-
-.average-check {
+.form-main .avg-check {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.average-check .radio-main {
+.form-main .avg-check .radio-main {
   display: flex;
   justify-content: space-around;
 }
-.average-check .radio-optional {
+.form-main .avg-check .radio-optional {
   display: flex;
   justify-content: space-between;
 }
-
-.feedbacks {
+.form-main .feedbacks {
   display: flex;
   flex-direction: column;
 }
-.feedbacks .input-container {
+.form-main .feedbacks .input-container {
   margin-top: 15px;
   display: flex;
   justify-content: center;
 }
-.feedbacks .input-container input {
+.form-main .feedbacks .input-container input {
   width: 60px;
   margin: 0 30px;
+}
+
+input[type=date] {
+  width: 160px;
+  margin: 0 auto;
 }
 
 .salary-today {
   margin-top: 50px;
   display: flex;
   justify-content: space-around;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+.stats-for-period h2 {
+  font-size: 3.3rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.dates-selection {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: none;
+  gap: 20px;
+}
+.dates-selection label {
+  display: block;
+}
+.dates-selection input {
+  margin: 0;
+}
+.dates-selection .period-input-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stats {
+  margin-top: 30px;
+}
+.stats .month-container {
+  margin-top: 10px;
+}
+.stats .main-data {
+  width: 100%;
+  display: inline-flex;
+  border: 1px solid white;
+}
+.stats .main-data .date, .stats .main-data .salary {
+  padding: 3px 20px;
+  width: 50%;
+  text-align: center;
+}
+.stats .main-data .date {
+  background-color: tomato;
+}
+.stats .main-data .salary {
+  background-color: thistle;
+}
+.stats .optional-data {
+  width: 100%;
+  margin: 0;
+  padding: 10px 10px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 7px;
+  background-color: rgb(191, 232, 174);
+}
+.stats .optional-data > * {
+  display: inline-flex;
+  justify-content: space-between;
+}
+.stats .optional-data > * > span:first-child::before {
+  content: "•";
+}
+
+/* .optional-data {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+} *//*# sourceMappingURL=styles.css.map */

@@ -1,9 +1,8 @@
 "use strict";
 const dateInput = document.querySelector(".current-date");
 dateInput.value = getCurrentDate();
-
-const form = document.querySelector(".form");
-const avgCheckField = document.querySelector(".average-check");
+const form = document.querySelector(".form-main");
+const avgCheckField = document.querySelector(".avg-check");
 const feedbacksField = document.querySelector(".feedbacks");
 const incomeInput = document.querySelector("#income-today");
 const feedbacksInput = document.querySelector("#feedbacks-input");
@@ -63,6 +62,111 @@ form.addEventListener("submit", (event) => {
 
 })
 
+const getStatsBtn = document.querySelector("#get-stats-btn");
+const getStatsForm = document.querySelector(".stats-for-period");
+getStatsForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const startValue = document.querySelector("#period-start-input").value.split("-");
+    const endValue = document.querySelector("#period-end-input").value.split("-");
+
+    const periodStart = {
+        monthId: +startValue[1],
+        day: +startValue[2]
+    }
+    const periodEnd = {
+        monthId: +endValue[1],
+        day: +endValue[2]
+    }
+
+    const stats = await getAllStats();
+    const filteredStats = stats.filter( elem => 
+        Number.parseInt(elem.monthId) >= periodStart.monthId &&
+        Number.parseInt(elem.monthId) <= periodEnd.monthId
+    );
+
+    if (document.querySelector(".stats")) {
+        document.querySelector(".stats").remove();
+    }
+
+    const statsDiv = createElement("div", "stats");
+    getStatsForm.after(statsDiv);
+
+    if (!filteredStats.length) return;
+
+    
+
+    filteredStats.forEach( ({id, monthId, ...days}) => {
+        console.log(monthId, days);
+        const monthDiv = createElement("div", "month-container", statsDiv)
+
+        Object
+        .entries(days)
+        .sort( (a,b) => Number(a[0].slice(-2)) - b[0].slice(-2))  
+        .forEach( ([key, data]) => {
+
+            if (Number(monthId) === periodStart.monthId &&
+                Number(key.slice(-2)) < periodStart.day) {
+                    return;
+                }
+            if (Number(monthId) === periodEnd.monthId &&
+                Number(key.slice(-2)) > periodEnd.day) {
+                    return;
+                }
+            
+
+            const detailsElem = createElement("details", null, monthDiv)
+
+            // create summary
+            const summaryElem = createElement("summary", "main-data", detailsElem)
+
+            const dateElem = createElement("span", "date", summaryElem)
+            dateElem.innerHTML = `${key.slice(-2)}.${monthId}`;
+
+            const salaryElem = createElement("span", "salary", summaryElem);
+            salaryElem.innerHTML = `${data.salary}₽`;
+
+            // create p (optional-data)
+            const paragraphElem = createElement("p", "optional-data", detailsElem);
+ 
+            // income
+            const incomeContainer = createElement("span", "income", paragraphElem);
+
+            const incomeTitle = createElement("span", "income-title", incomeContainer);
+            incomeTitle.innerHTML = `Выручка:`;
+
+            const incomeValue = createElement("span", "income-value", incomeContainer);
+            incomeValue.innerHTML = `${data.income}₽`;
+
+            // avg-check
+            const avgCheckContainer = createElement("span", "avg-check", paragraphElem)
+
+            const avgCheckTitle = createElement("span", "avg-check-title", avgCheckContainer);
+            avgCheckTitle.innerHTML = `Средний чек:`
+
+            const avgCheckValue = createElement("span", "avg-check-value", avgCheckContainer);
+            avgCheckValue.innerHTML = `${getAvgCheckByLabel(data.avgCheck.value)}`;
+            
+            // feedbacks
+            const feedbacksContainer = createElement("span", "feedbacks", paragraphElem);
+            
+            const feedbacksTitle = createElement("span", "feedbacks-title", feedbacksContainer);
+            feedbacksTitle.innerHTML = `Отзывы:`;
+
+            const feedbacksValue = createElement("span", "feedbacks-value", feedbacksContainer);
+            feedbacksValue.innerHTML = `${data.feedbacks}шт.`;
+
+        })      
+        console.log("entries", Object
+        .entries(days)
+        .sort( (a,b) => Number(a[0].slice(-2)) - b[0].slice(-2)));
+        
+    });
+    console.log(statsDiv);
+/*     console.log(filteredStats);
+    console.log(periodStart, periodEnd); */
+})
+
 /* submitBtn.addEventListener("click", () => {
     const salaryTextElem = document.querySelector(".salary-text");
     const salaryValElem = document.querySelector(".salary-value");
@@ -73,7 +177,25 @@ form.addEventListener("submit", (event) => {
     
 
 }) */
+function getAvgCheckByLabel(label) {
+    switch (label) {
+        case "high":
+            return "Больше 550₽";
+        case "mid":
+            return "501₽ — 550₽";
+        case "low":
+            return "451₽ — 500₽";
+        case null:
+            return "Нет";
+    }
+}
 
+function createElement(tag, className, parrent) {
+    const elem = document.createElement(tag);
+    if (className) elem.classList.add(className);
+    if (parrent) parrent.append(elem);
+    return elem;
+}
 
 function getTodayStats() {
     const date = getSelectedDate();
@@ -210,14 +332,12 @@ async function patchStats(id, stats) {
     fetch(`${url}/${id}`, params);
 }
 
-async function getStats(monthId) {
-    const searchUrl = new URL (url.toString());
-    searchUrl.searchParams.append("monthId", monthId);
-    const response = await fetch(searchUrl,{
+async function getAllStats() {
+
+    const response = await fetch(url,{
         method: 'GET',
         headers: {'content-type':'application/json'},
       });
     const stats = await response.json();
     return stats;
 }
-

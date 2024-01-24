@@ -28,64 +28,157 @@ fieldset {
     width: 390px;
     margin: 0 auto;
     padding: 20px 10px;
+    padding-top: 50px;
     border: 1px solid black;
+    background-color: rgb(178, 178, 202)
 }
 
-.form {
+.form-main {
     display: flex;
     flex-direction: column;
     gap: 30px;
+
+    .income {
+        display: flex;
+        justify-content: space-between;
+    
+        input {
+            width: 30%;
+            margin-left: 30px;
+        }
+    }
+
+    .avg-check {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    
+        .radio-main {
+            display: flex;
+            justify-content: space-around;
+        }
+    
+        .radio-optional {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .feedbacks {
+        display: flex;
+        flex-direction: column;
+    
+        .input-container {
+            margin-top: 15px;
+            input {
+                width: 60px;
+                margin: 0 30px;
+            }
+    
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
-.current-date {
+input[type="date"] {
     width: 160px;
     margin: 0 auto;
 }
 
-.income {
-    display: flex;
-    justify-content: space-between;
 
-    input {
-        width: 30%;
-        margin-left: 30px;
-    }
-}
 
-.average-check {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 
-    .radio-main {
-        display: flex;
-        justify-content: space-around;
-    }
 
-    .radio-optional {
-        display: flex;
-        justify-content: space-between;
-    }
-}
 
-.feedbacks {
-    display: flex;
-    flex-direction: column;
-
-    .input-container {
-        margin-top: 15px;
-        input {
-            width: 60px;
-            margin: 0 30px;
-        }
-
-        display: flex;
-        justify-content: center;
-    }
-}
 
 .salary-today {
     margin-top: 50px;
     display: flex;
     justify-content: space-around;
 }
+
+.stats-for-period {
+    h2 {
+        font-size: 3.3rem;
+        font-weight: 500;
+        text-align: center;
+    }
+}
+
+.dates-selection {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+    gap: 20px;
+    label {
+        display: block;
+    }
+
+    input {
+        margin: 0;
+    }
+
+    .period-input-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+
+
+.stats {
+    margin-top: 30px;
+
+    .month-container{
+        margin-top: 10px;
+    }
+
+    .main-data {
+        width: 100%;
+        display: inline-flex;
+        border: 1px solid white;
+        .date, .salary {
+            padding: 3px 20px;
+            width: 50%;
+            text-align: center;
+        }
+
+        .date {
+            background-color: tomato;
+        }
+
+        .salary {
+            background-color: thistle;
+        }
+    }
+
+    .optional-data {
+        width: 100%;
+        margin: 0;
+        padding: 10px 10px;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 7px;
+        background-color: rgb(191, 232, 174)
+    }
+
+    .optional-data > * {
+        display: inline-flex;
+        justify-content: space-between;
+    }
+
+
+    .optional-data > * > span:first-child::before {
+        content: "•";
+    }
+}
+
+/* .optional-data {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+} */

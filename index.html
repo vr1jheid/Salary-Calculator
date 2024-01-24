@@ -10,7 +10,7 @@
 <body>
 
     <div class="wrapper">
-        <form class="form">
+        <form class="form-main">
             <input 
             required
             class="current-date" 
@@ -28,7 +28,7 @@
             </fieldset>
     
             <!-- Ср чек -->
-            <fieldset class="average-check">
+            <fieldset class="avg-check">
     
                 <span class="condition-question">
                     Средний чек больше 450р?
@@ -102,13 +102,65 @@
             
             <button class="submit" type="submit">Расчитать и сохранить</button>
         </form>
+
         <div class="salary-today">
             <span class="salary-text">
             </span>
             <span class="salary-value">
             </span>
         </div>
-        <button>GET</button>
+
+        <form class="stats-for-period">
+            <h2>Данные за период</h2>
+            <fieldset class="dates-selection">
+                <div class="period-start period-input-block">
+                    <label for="period-start-input">
+                        Начало периода:
+                    </label> 
+                    <input 
+                    type="date"
+                    id="period-start-input"
+                    required>
+                </div>
+
+                <div class="period-end period-input-block">
+                    <label for="period-end-input">
+                        Конец периода:
+                    </label>
+                    <input 
+                    type="date" 
+                    id="period-end-input"
+                    required>
+                </div>
+                <button id="get-stats-btn">Получить данные</button>
+            </fieldset>
+
+        </form>
+
+<!--         <div class="stats">
+            <div class="month-container">
+                <details>
+                    <summary class="main-data">
+                        <span class="date">05.01</span>
+                        <span class="salary">3400₽</span>
+                    </summary>
+                    <p class="optional-data">
+                        <span class="income">
+                            <span class="income-title">Выручка:</span>
+                            <span class="income-value">63000</span>
+                        </span>
+                        <span class="avg-check">
+                            <span class="avg-check-title">Средний чек:</span>
+                            <span class="avg-check-value">450-550</span>
+                        </span>
+                        <span class="feedbacks">
+                            <span class="feedbacks-title">Отзывы:</span>
+                            <span class="feedbacks-value">10</span>
+                        </span>
+                    </p>
+                </details>
+            </div>
+        </div> -->
     </div>
     
     <script src="/scripts/script.js"></script>
