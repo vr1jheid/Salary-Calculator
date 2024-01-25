@@ -248,6 +248,14 @@ summary::marker {
   content: "";
 }
 
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary {
+  list-style: none;
+}
+
 .form {
   display: flex;
   flex-direction: column;
