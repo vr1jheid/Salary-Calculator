@@ -321,7 +321,7 @@ summary {
 }
 .stats .main-data {
   width: 100%;
-  /*         display: inline-flex; */
+  display: inline-flex;
   color: #264653;
 }
 .stats .main-data .date, .stats .main-data .salary {
