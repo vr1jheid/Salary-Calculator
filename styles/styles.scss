@@ -94,7 +94,7 @@ fieldset {
         justify-content: space-between;
         align-items: center;
 
-        & > *{
+        & > *:first-child{
             display: block;
         }
     }

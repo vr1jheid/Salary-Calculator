@@ -290,7 +290,7 @@ fieldset {
   justify-content: space-between;
   align-items: center;
 }
-.dates-selection .period-input-block > * {
+.dates-selection .period-input-block > *:first-child {
   display: block;
 }
 
