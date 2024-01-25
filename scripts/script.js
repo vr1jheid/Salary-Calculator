@@ -1,7 +1,12 @@
 "use strict";
 
-const dateInput = document.querySelector(".current-date");
-dateInput.value = getCurrentDate();
+const currentDateInput = document.querySelector(".current-date");
+currentDateInput.value = getCurrentDate();
+console.log(currentDateInput.value);
+const periodStartDateInput = document.querySelector("#period-start-input");
+const periodEndDateInput = document.querySelector("#period-end-input");
+periodStartDateInput.value = `2024-01-01`;
+periodEndDateInput.value = `2024-01-30`;
 
 const collectorForm = document.querySelector(".form-main");
 const avgCheckField = document.querySelector(".avg-check");
@@ -235,7 +240,7 @@ function getTodayStats() {
 }
 
 function getSelectedDate() {
-    const dateArr = dateInput.value.split("-");
+    const dateArr = currentDateInput.value.split("-");
     return {
         year: dateArr[0],
         month: dateArr[1],
