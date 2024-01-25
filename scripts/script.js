@@ -1,12 +1,13 @@
 "use strict";
 
 const currentDateInput = document.querySelector(".current-date");
-currentDateInput.value = getCurrentDate();
-console.log(currentDateInput.value);
+currentDateInput.value = dateToStr(new Date);
+
 const periodStartDateInput = document.querySelector("#period-start-input");
 const periodEndDateInput = document.querySelector("#period-end-input");
-periodStartDateInput.value = `2024-01-01`;
-periodEndDateInput.value = `2024-01-30`;
+const currentDate = getSelectedDate();
+periodStartDateInput.value = dateToStr(new Date(currentDate.year, currentDate.month - 1, 1));
+periodEndDateInput.value = dateToStr(new Date(currentDate.year, currentDate.month, 0));
 
 const collectorForm = document.querySelector(".form-main");
 const avgCheckField = document.querySelector(".avg-check");
@@ -182,9 +183,6 @@ getStatsForm.addEventListener("submit", async (e) => {
 
 
 // Functions
-function showStats(stats, elem) {
-    
-}
 
 function correctStatStyle(e) {
     const target = e.target.closest("details");
@@ -305,12 +303,11 @@ function radioMainHandler() {
     radioOptionalArea.classList.toggle("hidden");
 }
 
-function getCurrentDate() {
-    const currentDate = new Date;
-    const currentDay = currentDate.getDate() < 10 ? "0" + currentDate.getDate(): currentDate.getDate();
-    const currentMonth = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1): currentDate.getMonth() + 1;
+function dateToStr(date) {
+    const currentDay = date.getDate() < 10 ? "0" + date.getDate(): date.getDate();
+    const currentMonth = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1): date.getMonth() + 1;
 
-    return `${currentDate.getFullYear()}-${currentMonth}-${currentDay}`;
+    return `${date.getFullYear()}-${currentMonth}-${currentDay}`;
 }
 
 // Асинхронные операции
