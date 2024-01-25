@@ -83,7 +83,7 @@ fieldset {
 }
 
 .dates-selection {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     border: none;
     gap: 20px;
@@ -94,8 +94,8 @@ fieldset {
         justify-content: space-between;
         align-items: center;
 
-        & > *:first-child{
-            display: block;
+        input {
+            width: 190px;
         }
     }
 
