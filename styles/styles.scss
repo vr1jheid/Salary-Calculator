@@ -46,6 +46,10 @@ fieldset {
     touch-action: manipulation;
 }
 
+summary::marker{
+    content: "";
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -121,11 +125,8 @@ fieldset {
 
     .main-data {
         width: 100%;
-        display: inline-flex;
+/*         display: inline-flex; */
         color: $dark-blue;
-        &::marker {
-            content: "";
-        }
         .date, .salary {
             padding: 3px 20px;
             width: 50%;

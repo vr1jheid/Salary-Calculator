@@ -244,6 +244,10 @@ fieldset {
   }
 }
 
+summary::marker {
+  content: "";
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -309,11 +313,8 @@ fieldset {
 }
 .stats .main-data {
   width: 100%;
-  display: inline-flex;
+  /*         display: inline-flex; */
   color: #264653;
-}
-.stats .main-data::marker {
-  content: "";
 }
 .stats .main-data .date, .stats .main-data .salary {
   padding: 3px 20px;
