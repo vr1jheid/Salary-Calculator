@@ -123,6 +123,9 @@ fieldset {
         width: 100%;
         display: inline-flex;
         color: $dark-blue;
+        &::marker {
+            content: "";
+        }
         .date, .salary {
             padding: 3px 20px;
             width: 50%;
