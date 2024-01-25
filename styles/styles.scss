@@ -90,12 +90,16 @@ fieldset {
     width: 100%;
 
     .period-input-block {
-/*         display: flex;
+        display: inline-flex;
         justify-content: space-between;
-        align-items: center; */
+        align-items: center;
+
+        label {
+            width: 30%;
+        }
 
         input {
-            width: 190px;
+            width: 60%;
         }
     }
 
