@@ -4,3 +4,6 @@ arr.forEach( e => {
     if (e === 4) return;
     console.log(e);
 })
+
+const test = !undefined ?? 10
+console.log(test);

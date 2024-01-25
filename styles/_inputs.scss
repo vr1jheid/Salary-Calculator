@@ -15,7 +15,8 @@ input, button {
 }
 
 input:focus {
-    border: 2px dashed $white;
+    border: 3px solid $white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 
@@ -41,11 +42,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .current-date {
-    background-color: $siena !important;
+    background-color: $dark-blue !important;
     margin: 0 auto;
 
     &:focus {
-        border: 2px solid $dark-blue;
+        border: 3px solid $light-blue;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     }
 }
 

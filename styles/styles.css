@@ -108,7 +108,8 @@ input, button {
 }
 
 input:focus {
-  border: 2px dashed #fdf0d5;
+  border: 3px solid #fdf0d5;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 input[type=date] {
@@ -132,11 +133,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .current-date {
-  background-color: #E76F51 !important;
+  background-color: #264653 !important;
   margin: 0 auto;
 }
 .current-date:focus {
-  border: 2px solid #264653;
+  border: 3px solid #2A9D8F;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .submit {
@@ -237,7 +239,6 @@ fieldset {
   padding: 20px 10px;
   padding-top: 50px;
   color: #fdf0d5;
-  border: solid 1px black;
 }
 @media (max-width: 600px) {
   .wrapper {
@@ -309,6 +310,7 @@ fieldset {
 }
 .stats .month-container {
   padding: 20px 12px;
+  padding-bottom: 0px;
 }
 .stats .main-data {
   width: 100%;
@@ -323,10 +325,12 @@ fieldset {
 .stats .main-data .date {
   background-color: #E9C46A;
   border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
 }
 .stats .main-data .salary {
   background-color: #F4A261;
   border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
 }
 .stats .optional-data {
   color: #264653;

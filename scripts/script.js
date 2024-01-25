@@ -2,6 +2,7 @@
 
 const dateInput = document.querySelector(".current-date");
 dateInput.value = getCurrentDate();
+
 const collectorForm = document.querySelector(".form-main");
 const avgCheckField = document.querySelector(".avg-check");
 const feedbacksField = document.querySelector(".feedbacks");
@@ -23,6 +24,7 @@ const avgCheck = {
     }
 }
 
+// feedbacks count
 feedbacksField.addEventListener("click", (event) => {
     const target = event.target.closest(".adjust-btn");
     if (!target) return;
@@ -36,9 +38,9 @@ feedbacksField.addEventListener("click", (event) => {
     }
 })
 
+// radio handlers
 const radioYesOpt = document.querySelector("#radio-true");
 const radioNoOpt = document.querySelector("#radio-false");
-
 radioYesOpt.addEventListener("change", radioMainHandler);
 radioNoOpt.addEventListener("change", radioMainHandler);
 
@@ -53,6 +55,8 @@ collectorForm.addEventListener("submit", (event) => {
 
 })
 
+
+// gettings statistics
 const getStatsBtn = document.querySelector("#get-stats-btn");
 const getStatsForm = document.querySelector(".stats-for-period");
 getStatsForm.addEventListener("submit", async (e) => {
@@ -86,11 +90,10 @@ getStatsForm.addEventListener("submit", async (e) => {
     }
 
     const statsDiv = createElement("div", "stats");
+    statsDiv.addEventListener("click", correctStatStyle);
     getStatsForm.after(statsDiv);
 
     if (!filteredStats.length) return;
-
-    
 
     filteredStats.forEach( ({id, monthId, ...days}) => {
         const monthDiv = createElement("div", "month-container", statsDiv)
@@ -153,6 +156,17 @@ getStatsForm.addEventListener("submit", async (e) => {
 
         })      
     });
+
+    if (getStatsForm.getBoundingClientRect().top > 0) {
+        const statsPosition = getStatsForm.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+            top: statsPosition,
+            left: 0,
+            behavior: "smooth"
+          })
+    }
+
     const end = Date.now();
     console.log( `
         От старта до получения данных: ${(dataFetchedTime-fetchStartTime)/1000}
@@ -160,6 +174,27 @@ getStatsForm.addEventListener("submit", async (e) => {
     `);
 })
 
+
+
+// Functions
+function showStats(stats, elem) {
+    
+}
+
+function correctStatStyle(e) {
+    const target = e.target.closest("details");
+    if (!target) return;
+    const date = target.querySelector(".date");
+    const salary = target.querySelector(".salary");
+
+    if (!target.hasAttribute("open")) {
+        date.style.borderBottomLeftRadius  = "0px";  
+        salary.style.borderBottomRightRadius  = "0px";
+    } else {
+        date.style.borderBottomLeftRadius  = "7px";  
+        salary.style.borderBottomRightRadius  = "7px";
+    }
+}
 
 function getAvgCheckByLabel(label) {
     switch (label) {
