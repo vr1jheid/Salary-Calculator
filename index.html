@@ -10,7 +10,7 @@
 <body>
 
     <div class="wrapper">
-        <form class="form-main">
+        <form class="form-main form">
             <input 
             required
             class="current-date" 
@@ -102,15 +102,15 @@
             
             <button class="submit" type="submit">Расчитать и сохранить</button>
         </form>
-
+<!-- 
         <div class="salary-today">
             <span class="salary-text">
             </span>
             <span class="salary-value">
             </span>
-        </div>
+        </div> -->
 
-        <form class="stats-for-period">
+        <form class="stats-for-period form">
             <h2>Данные за период</h2>
             <fieldset class="dates-selection">
                 <div class="period-start period-input-block">
@@ -132,9 +132,8 @@
                     id="period-end-input"
                     required>
                 </div>
-                <button id="get-stats-btn">Получить данные</button>
             </fieldset>
-
+            <button class="submit" id="get-stats-btn">Получить данные</button>
         </form>
 
 <!--         <div class="stats">

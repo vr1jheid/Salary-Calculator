@@ -1,4 +1,98 @@
 @charset "UTF-8";
+/* roboto-300 - cyrillic_cyrillic-ext_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/roboto-v30-cyrillic_cyrillic-ext_latin-300.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-regular - cyrillic_cyrillic-ext_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/roboto-v30-cyrillic_cyrillic-ext_latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-500 - cyrillic_cyrillic-ext_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/roboto-v30-cyrillic_cyrillic-ext_latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-700 - cyrillic_cyrillic-ext_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/roboto-v30-cyrillic_cyrillic-ext_latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-900 - cyrillic_cyrillic-ext_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/roboto-v30-cyrillic_cyrillic-ext_latin-900.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+input[type=radio] {
+  --s: 0.8em; /* control the size */
+  --c: #2A9D8F; /* the active color */
+  height: var(--s);
+  aspect-ratio: 1;
+  border: calc(var(--s) / 8) solid #fdf0d5;
+  padding: calc(var(--s) / 8);
+  background: radial-gradient(farthest-side, var(--c) 94%, rgba(0, 0, 0, 0)) 50%/0 0 no-repeat content-box;
+  border-radius: 50%;
+  outline-offset: calc(var(--s) / 10);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  font-size: inherit;
+  transition: 0.4s;
+}
+
+input[type=radio]:checked {
+  border-color: var(--c);
+  background-size: 100% 100%;
+}
+
+input[type=radio]:disabled {
+  background: linear-gradient(#fdf0d5 0 0) 50%/100% 20% no-repeat content-box;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media print {
+  input[type=radio] {
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+    background: none;
+  }
+}
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  font-family: system-ui, sans-serif;
+  font-size: 40px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,16 +102,16 @@ html {
 }
 
 body {
-  font-size: 2.5rem;
-}
-
-input {
-  text-align: right;
+  font-size: 2.2rem;
+  font-family: "Roboto", sans-serif;
 }
 
 fieldset {
-  /*     border: none; */
-  padding: 10px 15px;
+  border: none;
+  padding: 20px 20px;
+  border-radius: 5px;
+  background-color: #264653;
+  margin: 0;
 }
 
 .hidden {
@@ -25,22 +119,93 @@ fieldset {
 }
 
 .wrapper {
-  width: 390px;
+  width: 600px;
   margin: 0 auto;
   padding: 20px 10px;
   padding-top: 50px;
-  border: 1px solid black;
-  background-color: rgb(178, 178, 202);
+  /*     border: 1px solid black; */
+  color: #fdf0d5;
+}
+@media (max-width: 600px) {
+  .wrapper {
+    width: 100vw;
+  }
+}
+@media (max-width: 321px) {
+  .wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-.form-main {
+/* input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+} */
+input[type=date], input[type=number] {
+  border-radius: 5px;
+  background-color: #2A9D8F;
+  border: none;
+  color: #fdf0d5;
+  text-align: center;
+  outline: none;
+  padding: 5px 0px;
+  height: 37px;
+}
+
+input:focus {
+  border: 2px dashed #fdf0d5;
+}
+
+input[type=date] {
+  width: 175px;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+  background: url("/images/calendar-svgrepo-com.svg") no-repeat center center;
+  background-size: contain;
+  width: 17px; /* Ширина иконки */
+  height: 17px; /* Высота иконки */
+  opacity: 1; /* Прозрачность иконки (при необходимости) */
+  cursor: pointer; /* Изменение курсора при наведении */
+  margin: 0px 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.submit {
+  padding: 8px 0;
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+  background-color: #E76F51;
+  color: #fdf0d5;
+  border-radius: 5px;
+}
+
+.current-date {
+  background-color: #E76F51 !important;
+  margin: 0 auto;
+}
+
+.current-date:focus {
+  border: 2px solid #264653;
+}
+
+.form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
+
 .form-main .income {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .form-main .income input {
   width: 30%;
@@ -73,18 +238,29 @@ fieldset {
   margin: 0 30px;
 }
 
-input[type=date] {
-  width: 160px;
-  margin: 0 auto;
-}
-
 .salary-today {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-around;
+  padding: 20px;
+  width: 100%;
+  margin-top: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #264653;
+  gap: 20px;
+}
+.salary-today .salary-value {
+  font-size: 3rem;
 }
 
+.stats-for-period {
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 5px solid #264653;
+}
 .stats-for-period h2 {
+  margin: 0 auto;
+  color: #264653;
   font-size: 3.3rem;
   font-weight: 500;
   text-align: center;
@@ -93,20 +269,17 @@ input[type=date] {
 .dates-selection {
   display: flex;
   flex-direction: column;
-  padding: 0;
   border: none;
   gap: 20px;
-}
-.dates-selection label {
-  display: block;
-}
-.dates-selection input {
-  margin: 0;
+  width: 100%;
 }
 .dates-selection .period-input-block {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.dates-selection .period-input-block > * {
+  display: block;
 }
 
 .stats {

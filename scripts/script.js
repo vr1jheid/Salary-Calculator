@@ -1,7 +1,7 @@
 "use strict";
 const dateInput = document.querySelector(".current-date");
 dateInput.value = getCurrentDate();
-const form = document.querySelector(".form-main");
+const collectorForm = document.querySelector(".form-main");
 const avgCheckField = document.querySelector(".avg-check");
 const feedbacksField = document.querySelector(".feedbacks");
 const incomeInput = document.querySelector("#income-today");
@@ -51,7 +51,7 @@ const radioNoOpt = document.querySelector("#radio-false");
 radioYesOpt.addEventListener("change", radioMainHandler);
 radioNoOpt.addEventListener("change", radioMainHandler);
 
-form.addEventListener("submit", (event) => {
+collectorForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const stats = getTodayStats();
     console.log(avgCheck);
@@ -163,20 +163,9 @@ getStatsForm.addEventListener("submit", async (e) => {
         
     });
     console.log(statsDiv);
-/*     console.log(filteredStats);
-    console.log(periodStart, periodEnd); */
 })
 
-/* submitBtn.addEventListener("click", () => {
-    const salaryTextElem = document.querySelector(".salary-text");
-    const salaryValElem = document.querySelector(".salary-value");
 
-    salaryTextElem.innerHTML = `З/П за ${dateInput.value}:`;
-
-    salaryValElem.innerHTML = `${calculateSalary()}`;
-    
-
-}) */
 function getAvgCheckByLabel(label) {
     switch (label) {
         case "high":
@@ -225,11 +214,19 @@ function getSelectedDate() {
 }
 
 function showSalary(salary) {
-    const salaryTextElem = document.querySelector(".salary-text");
-    const salaryValElem = document.querySelector(".salary-value");
 
-    salaryTextElem.innerHTML = `З/П за ${dateInput.value}:`;
-    salaryValElem.innerHTML = `${salary}`;
+    if (document.querySelector(".salary-today")) {
+        document.querySelector(".salary-today").remove();
+    }
+
+    const salaryContainer = createElement("div", "salary-today");
+    collectorForm.after(salaryContainer);
+
+    const salaryTextElem = createElement("span", "salary-text", salaryContainer);
+    const salaryValueElem = createElement("span", "salary-value", salaryContainer);
+
+    salaryTextElem.innerHTML = `Зарплата за ${getSelectedDate().day}.${getSelectedDate().month}`;
+    salaryValueElem.innerHTML = `${salary}₽`;
 }
 
 function calculateSalary() {
