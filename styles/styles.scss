@@ -43,6 +43,7 @@ fieldset {
     padding: 20px 10px;
     padding-top: 50px;
     color: $white;
+    touch-action: manipulation;
 }
 
 .form {

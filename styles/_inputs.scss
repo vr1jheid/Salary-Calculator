@@ -21,19 +21,12 @@ input:focus {
 
 
 input[type="date"] {
-    width: 175px;
+    width: 190px;
+    padding-right: 10px;
 }
 
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background: url('/images/calendar-svgrepo-com.svg') no-repeat center center;
-    background-size: contain;
-    width: 17px; /* Ширина иконки */
-    height: 17px; /* Высота иконки */
-    opacity: 1; /* Прозрачность иконки (при необходимости) */
-    cursor: pointer; /* Изменение курсора при наведении */
-    margin: 0px 3px;
-}
+
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

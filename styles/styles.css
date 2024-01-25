@@ -113,17 +113,8 @@ input:focus {
 }
 
 input[type=date] {
-  width: 175px;
-}
-
-input[type=date]::-webkit-calendar-picker-indicator {
-  background: url("/images/calendar-svgrepo-com.svg") no-repeat center center;
-  background-size: contain;
-  width: 17px; /* Ширина иконки */
-  height: 17px; /* Высота иконки */
-  opacity: 1; /* Прозрачность иконки (при необходимости) */
-  cursor: pointer; /* Изменение курсора при наведении */
-  margin: 0px 3px;
+  width: 190px;
+  padding-right: 10px;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -239,6 +230,7 @@ fieldset {
   padding: 20px 10px;
   padding-top: 50px;
   color: #fdf0d5;
+  touch-action: manipulation;
 }
 @media (max-width: 600px) {
   .wrapper {
