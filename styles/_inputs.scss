@@ -1,0 +1,79 @@
+input[type="date"], input[type="number"]{
+    border-radius: $border-radius;
+    background-color: $light-blue;
+    border: none;
+    color: $white;
+    text-align: center;
+    outline: none;
+    padding: 5px 0px;
+    height: 40px;
+
+}
+
+input, button {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+input:focus {
+    border: 2px dashed $white;
+}
+
+
+input[type="date"] {
+    width: 175px;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url('/images/calendar-svgrepo-com.svg') no-repeat center center;
+    background-size: contain;
+    width: 17px; /* Ширина иконки */
+    height: 17px; /* Высота иконки */
+    opacity: 1; /* Прозрачность иконки (при необходимости) */
+    cursor: pointer; /* Изменение курсора при наведении */
+    margin: 0px 3px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.current-date {
+    background-color: $siena !important;
+    margin: 0 auto;
+
+    &:focus {
+        border: 2px solid $dark-blue;
+    }
+}
+
+.submit {
+    padding: 8px 10px;
+    width: 70%;
+    margin: 0 auto;
+    border: none;
+    background-color: $siena;
+    color: $white;
+    border-radius: $border-radius;
+
+    &:active {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    }
+}
+
+.adjust-btn {
+    border-radius: $border-radius;
+    background-color: $light-blue;
+    color: $white;
+    width: 40px;
+    height: 40px;
+    border:none;
+
+    &:active {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    }
+}
+

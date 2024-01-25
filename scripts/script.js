@@ -1,4 +1,5 @@
 "use strict";
+
 const dateInput = document.querySelector(".current-date");
 dateInput.value = getCurrentDate();
 const collectorForm = document.querySelector(".form-main");
@@ -21,16 +22,6 @@ const avgCheck = {
         this.isTrue = false;
     }
 }
-/* incomeInput.addEventListener("input", (event) => {
-    
-    if (+event.target.value >= 50000) {
-        avgCheckField.removeAttribute("disabled");
-        feedbacksField.removeAttribute("disabled");
-    } else {
-        avgCheckField.setAttribute("disabled", "");
-        feedbacksField.setAttribute("disabled", "");
-    }
-}) */
 
 feedbacksField.addEventListener("click", (event) => {
     const target = event.target.closest(".adjust-btn");
@@ -79,7 +70,12 @@ getStatsForm.addEventListener("submit", async (e) => {
         day: +endValue[2]
     }
 
+    const fetchStartTime = Date.now();
+
     const stats = await getAllStats();
+
+    const dataFetchedTime = Date.now();
+
     const filteredStats = stats.filter( elem => 
         Number.parseInt(elem.monthId) >= periodStart.monthId &&
         Number.parseInt(elem.monthId) <= periodEnd.monthId
@@ -97,7 +93,6 @@ getStatsForm.addEventListener("submit", async (e) => {
     
 
     filteredStats.forEach( ({id, monthId, ...days}) => {
-        console.log(monthId, days);
         const monthDiv = createElement("div", "month-container", statsDiv)
 
         Object
@@ -157,12 +152,12 @@ getStatsForm.addEventListener("submit", async (e) => {
             feedbacksValue.innerHTML = `${data.feedbacks}шт.`;
 
         })      
-        console.log("entries", Object
-        .entries(days)
-        .sort( (a,b) => Number(a[0].slice(-2)) - b[0].slice(-2)));
-        
     });
-    console.log(statsDiv);
+    const end = Date.now();
+    console.log( `
+        От старта до получения данных: ${(dataFetchedTime-fetchStartTime)/1000}
+        От получения данных до выхода: ${(end-dataFetchedTime)/1000}
+    `);
 })
 
 

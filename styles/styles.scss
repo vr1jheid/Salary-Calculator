@@ -1,13 +1,8 @@
-@use "fonts";
-@use "radio";
-
-$dark-blue: #264653;
-$light-blue: #2A9D8F;
-$browny-yellow: #E9C46A;
-$red-sand: #F4A261;
-$siena: #E76F51;
-$white: #fdf0d5;
-$border-radius: 5px;
+@import "variables";
+@import "fonts";
+@import "radio";
+@import "inputs";
+@import "main_form";
 
 * {
     box-sizing: border-box;
@@ -22,16 +17,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.hidden {
+    display: none !important;
+}
+
 fieldset {
     border: none;
     padding: 20px 20px;
     border-radius: $border-radius;
     background-color: $dark-blue;
     margin: 0;
-}
-
-.hidden {
-    display: none !important;
 }
 
 .wrapper {
@@ -43,124 +38,18 @@ fieldset {
         padding-left: 0;
         padding-right: 0;
     }
-    width: 600px;
+    width: 390px;
     margin: 0 auto;
     padding: 20px 10px;
     padding-top: 50px;
-/*     border: 1px solid black; */
     color: $white;
-}
-/* input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-} */
-
-input[type="date"], input[type="number"]{
-    border-radius: $border-radius;
-    background-color: $light-blue;
-    border: none;
-    color: $white;
-    text-align: center;
-    outline: none;
-    padding: 5px 0px;
-    height: 37px;
-}
-
-input:focus {
-    border: 2px dashed $white;
-}
-
-
-input[type="date"] {
-    width: 175px;
-}
-
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background: url('/images/calendar-svgrepo-com.svg') no-repeat center center;
-    background-size: contain;
-    width: 17px; /* Ширина иконки */
-    height: 17px; /* Высота иконки */
-    opacity: 1; /* Прозрачность иконки (при необходимости) */
-    cursor: pointer; /* Изменение курсора при наведении */
-    margin: 0px 3px;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.submit {
-    padding: 8px 0;
-    width: 50%;
-    margin: 0 auto;
-    border: none;
-    background-color: $siena;
-    color: $white;
-    border-radius: $border-radius;
-}
-
-.current-date {
-    background-color: $siena !important;
-    margin: 0 auto;
-}
-
-.current-date:focus {
-    border: 2px solid $dark-blue;
+    border: solid 1px black;
 }
 
 .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-.form-main {
-
-    .income {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    
-        input {
-            width: 30%;
-            margin-left: 30px;
-        }
-    }
-
-    .avg-check {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    
-        .radio-main {
-            display: flex;
-            justify-content: space-around;
-        }
-    
-        .radio-optional {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
-
-    .feedbacks {
-        display: flex;
-        flex-direction: column;
-    
-        .input-container {
-            margin-top: 15px;
-            input {
-                width: 60px;
-                margin: 0 30px;
-            }
-    
-            display: flex;
-            justify-content: center;
-        }
-    }
 }
 
 .salary-today {
@@ -218,14 +107,18 @@ input[type="number"]::-webkit-outer-spin-button {
 .stats {
     margin-top: 30px;
 
+    details {
+        margin-bottom: 8px;
+    }
+
     .month-container{
-        margin-top: 10px;
+        padding: 20px 12px;
     }
 
     .main-data {
         width: 100%;
         display: inline-flex;
-        border: 1px solid white;
+        color: $dark-blue;
         .date, .salary {
             padding: 3px 20px;
             width: 50%;
@@ -233,22 +126,31 @@ input[type="number"]::-webkit-outer-spin-button {
         }
 
         .date {
-            background-color: tomato;
+            background-color: $browny-yellow;
+            border-top-left-radius: $border-radius;
         }
 
         .salary {
-            background-color: thistle;
+            background-color: $red-sand;
+            border-top-right-radius: $border-radius;
         }
     }
 
     .optional-data {
+        color: $dark-blue;
         width: 100%;
+
+
+
         margin: 0;
+        margin-bottom: 20px;
         padding: 10px 10px;
         display: inline-flex;
         flex-direction: column;
         gap: 7px;
-        background-color: rgb(191, 232, 174)
+        background-color: $siena;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
     }
 
     .optional-data > * {
@@ -262,9 +164,3 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 }
 
-/* .optional-data {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-
-} */

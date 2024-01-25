@@ -40,18 +40,18 @@ input[type=radio] {
     }
   }
   
-  label {
+  .radio-label {
     display:inline-flex;
     align-items:center;
     gap:10px;
     margin:5px 0;
     cursor: pointer;
   }
-  body {
+/*   body {
     margin:0;
     min-height:100vh;
     display:grid;
     place-content:center;
     font-family: system-ui, sans-serif;
     font-size: 40px;
-  }
+  } */

@@ -76,7 +76,7 @@ input[type=radio]:disabled {
     background: none;
   }
 }
-label {
+.radio-label {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -84,73 +84,27 @@ label {
   cursor: pointer;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-content: center;
-  font-family: system-ui, sans-serif;
-  font-size: 40px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-}
-
-body {
-  font-size: 2.2rem;
-  font-family: "Roboto", sans-serif;
-}
-
-fieldset {
-  border: none;
-  padding: 20px 20px;
-  border-radius: 5px;
-  background-color: #264653;
-  margin: 0;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.wrapper {
-  width: 600px;
-  margin: 0 auto;
-  padding: 20px 10px;
-  padding-top: 50px;
-  /*     border: 1px solid black; */
-  color: #fdf0d5;
-}
-@media (max-width: 600px) {
-  .wrapper {
-    width: 100vw;
-  }
-}
-@media (max-width: 321px) {
-  .wrapper {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-/* input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-} */
+/*   body {
+    margin:0;
+    min-height:100vh;
+    display:grid;
+    place-content:center;
+    font-family: system-ui, sans-serif;
+    font-size: 40px;
+  } */
 input[type=date], input[type=number] {
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #2A9D8F;
   border: none;
   color: #fdf0d5;
   text-align: center;
   outline: none;
   padding: 5px 0px;
-  height: 37px;
+  height: 40px;
+}
+
+input, button {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 input:focus {
@@ -177,29 +131,37 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.submit {
-  padding: 8px 0;
-  width: 50%;
-  margin: 0 auto;
-  border: none;
-  background-color: #E76F51;
-  color: #fdf0d5;
-  border-radius: 5px;
-}
-
 .current-date {
   background-color: #E76F51 !important;
   margin: 0 auto;
 }
-
 .current-date:focus {
   border: 2px solid #264653;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.submit {
+  padding: 8px 10px;
+  width: 70%;
+  margin: 0 auto;
+  border: none;
+  background-color: #E76F51;
+  color: #fdf0d5;
+  border-radius: 7px;
+}
+.submit:active {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.adjust-btn {
+  border-radius: 7px;
+  background-color: #2A9D8F;
+  color: #fdf0d5;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+.adjust-btn:active {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .form-main .income {
@@ -216,6 +178,9 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: column;
   gap: 15px;
 }
+.form-main .avg-check .condition-question {
+  text-align: center;
+}
 .form-main .avg-check .radio-main {
   display: flex;
   justify-content: space-around;
@@ -228,6 +193,9 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   flex-direction: column;
 }
+.form-main .feedbacks-title {
+  text-align: center;
+}
 .form-main .feedbacks .input-container {
   margin-top: 15px;
   display: flex;
@@ -238,6 +206,57 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0 30px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2.2rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.hidden {
+  display: none !important;
+}
+
+fieldset {
+  border: none;
+  padding: 20px 20px;
+  border-radius: 7px;
+  background-color: #264653;
+  margin: 0;
+}
+
+.wrapper {
+  width: 390px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  padding-top: 50px;
+  color: #fdf0d5;
+  border: solid 1px black;
+}
+@media (max-width: 600px) {
+  .wrapper {
+    width: 100vw;
+  }
+}
+@media (max-width: 321px) {
+  .wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .salary-today {
   padding: 20px;
   width: 100%;
@@ -245,7 +264,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #264653;
   gap: 20px;
 }
@@ -285,13 +304,16 @@ input[type=number]::-webkit-outer-spin-button {
 .stats {
   margin-top: 30px;
 }
+.stats details {
+  margin-bottom: 8px;
+}
 .stats .month-container {
-  margin-top: 10px;
+  padding: 20px 12px;
 }
 .stats .main-data {
   width: 100%;
   display: inline-flex;
-  border: 1px solid white;
+  color: #264653;
 }
 .stats .main-data .date, .stats .main-data .salary {
   padding: 3px 20px;
@@ -299,19 +321,25 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
 }
 .stats .main-data .date {
-  background-color: tomato;
+  background-color: #E9C46A;
+  border-top-left-radius: 7px;
 }
 .stats .main-data .salary {
-  background-color: thistle;
+  background-color: #F4A261;
+  border-top-right-radius: 7px;
 }
 .stats .optional-data {
+  color: #264653;
   width: 100%;
   margin: 0;
+  margin-bottom: 20px;
   padding: 10px 10px;
   display: inline-flex;
   flex-direction: column;
   gap: 7px;
-  background-color: rgb(191, 232, 174);
+  background-color: #E76F51;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
 }
 .stats .optional-data > * {
   display: inline-flex;
@@ -319,11 +347,4 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .stats .optional-data > * > span:first-child::before {
   content: "•";
-}
-
-/* .optional-data {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-
-} *//*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */
