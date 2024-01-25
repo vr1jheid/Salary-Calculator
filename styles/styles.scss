@@ -83,16 +83,16 @@ fieldset {
 }
 
 .dates-selection {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     border: none;
     gap: 20px;
     width: 100%;
 
     .period-input-block {
-        display: flex;
+/*         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: center; */
 
         input {
             width: 190px;

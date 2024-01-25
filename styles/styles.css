@@ -279,16 +279,16 @@ fieldset {
 }
 
 .dates-selection {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   border: none;
   gap: 20px;
   width: 100%;
 }
 .dates-selection .period-input-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /*         display: flex;
+          justify-content: space-between;
+          align-items: center; */
 }
 .dates-selection .period-input-block input {
   width: 190px;
