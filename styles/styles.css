@@ -312,15 +312,11 @@ summary {
   width: 60%;
 }
 
-.stats {
-  margin-top: 30px;
-}
 .stats details {
   margin-bottom: 8px;
 }
 .stats .month-container {
-  padding: 20px 12px;
-  padding-bottom: 0px;
+  padding: 10px;
 }
 .stats .main-data {
   width: 100%;
@@ -361,4 +357,15 @@ summary {
 }
 .stats .optional-data > * > span:first-child::before {
   content: "•";
+}
+
+.salary-sum {
+  width: 100%;
+  background-color: #264653;
+  border-radius: 7px;
+  font-size: 3.3rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin-top: 30px;
 }/*# sourceMappingURL=styles.css.map */

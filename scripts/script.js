@@ -1,14 +1,17 @@
 "use strict";
+/* ************************ CHECK URL ************************ */
 
+// date fields fill
 const currentDateInput = document.querySelector(".current-date");
 currentDateInput.value = dateToStr(new Date);
-
 const periodStartDateInput = document.querySelector("#period-start-input");
 const periodEndDateInput = document.querySelector("#period-end-input");
 const currentDate = getSelectedDate();
 periodStartDateInput.value = dateToStr(new Date(currentDate.year, currentDate.month - 1, 1));
 periodEndDateInput.value = dateToStr(new Date(currentDate.year, currentDate.month, 0));
 
+
+// main variables
 const collectorForm = document.querySelector(".form-main");
 const avgCheckField = document.querySelector(".avg-check");
 const feedbacksField = document.querySelector(".feedbacks");
@@ -63,8 +66,8 @@ collectorForm.addEventListener("submit", (event) => {
 
 
 // gettings statistics
-const getStatsBtn = document.querySelector("#get-stats-btn");
 const getStatsForm = document.querySelector(".stats-for-period");
+
 getStatsForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -81,9 +84,7 @@ getStatsForm.addEventListener("submit", async (e) => {
     }
 
     const fetchStartTime = Date.now();
-
     const stats = await getAllStats();
-
     const dataFetchedTime = Date.now();
 
     const filteredStats = stats.filter( elem => 
@@ -101,6 +102,7 @@ getStatsForm.addEventListener("submit", async (e) => {
 
     if (!filteredStats.length) return;
 
+    let salaryForPeriod = 0;
     filteredStats.forEach( ({id, monthId, ...days}) => {
         const monthDiv = createElement("div", "month-container", statsDiv)
 
@@ -128,7 +130,8 @@ getStatsForm.addEventListener("submit", async (e) => {
             dateElem.innerHTML = `${key.slice(-2)}.${monthId}`;
 
             const salaryElem = createElement("span", "salary", summaryElem);
-            salaryElem.innerHTML = `${data.salary}₽`;
+            salaryElem.innerHTML = `${data.salary} ₽`;
+            salaryForPeriod += Number(data.salary);
 
             // create p (optional-data)
             const paragraphElem = createElement("p", "optional-data", detailsElem);
@@ -140,7 +143,7 @@ getStatsForm.addEventListener("submit", async (e) => {
             incomeTitle.innerHTML = `Выручка:`;
 
             const incomeValue = createElement("span", "income-value", incomeContainer);
-            incomeValue.innerHTML = `${data.income}₽`;
+            incomeValue.innerHTML = `${data.income} ₽`;
 
             // avg-check
             const avgCheckContainer = createElement("span", "avg-check", paragraphElem)
@@ -160,8 +163,19 @@ getStatsForm.addEventListener("submit", async (e) => {
             const feedbacksValue = createElement("span", "feedbacks-value", feedbacksContainer);
             feedbacksValue.innerHTML = `${data.feedbacks}шт.`;
 
-        })      
+        })  
     });
+
+    const salaryForPeriodContainer = createElement("div", "salary-sum");
+    const salaryForPeriodTitle = createElement("span", "salary-sum-title");
+    const salaryForPeriodValue = createElement("span", "salary-sum-value");
+    salaryForPeriodTitle.innerHTML = "Итого:"
+    salaryForPeriodValue.innerHTML = `${salaryForPeriod} ₽`;
+
+    salaryForPeriodContainer.append(salaryForPeriodTitle);
+    salaryForPeriodContainer.append(salaryForPeriodValue);
+    statsDiv.before(salaryForPeriodContainer);
+
 
     if (getStatsForm.getBoundingClientRect().top > 0) {
         const statsPosition = getStatsForm.getBoundingClientRect().top + window.scrollY;
@@ -202,11 +216,11 @@ function correctStatStyle(e) {
 function getAvgCheckByLabel(label) {
     switch (label) {
         case "high":
-            return "Больше 550₽";
+            return "Больше 550 ₽";
         case "mid":
-            return "501₽ — 550₽";
+            return "501 ₽ — 550 ₽";
         case "low":
-            return "451₽ — 500₽";
+            return "451 ₽ — 500 ₽";
         case null:
             return "Нет";
     }
@@ -259,7 +273,7 @@ function showSalary(salary) {
     const salaryValueElem = createElement("span", "salary-value", salaryContainer);
 
     salaryTextElem.innerHTML = `Зарплата за ${getSelectedDate().day}.${getSelectedDate().month}`;
-    salaryValueElem.innerHTML = `${salary}₽`;
+    salaryValueElem.innerHTML = `${salary} ₽`;
 }
 
 function calculateSalary() {
@@ -312,6 +326,7 @@ function dateToStr(date) {
 
 // Асинхронные операции
 const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
+/* const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/forTests"); */
 
 async function sendStats(stats) {
 

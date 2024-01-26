@@ -121,15 +121,12 @@ summary {
 
 
 .stats {
-    margin-top: 30px;
-
     details {
         margin-bottom: 8px;
     }
 
     .month-container{
-        padding: 20px 12px;
-        padding-bottom: 0px;
+        padding: 10px;
     }
 
     .main-data {
@@ -181,5 +178,16 @@ summary {
     .optional-data > * > span:first-child::before {
         content: "•";
     }
+}
+
+.salary-sum {
+    width: 100%;
+    background-color: $dark-blue;
+    border-radius: $border-radius;
+    font-size: 3.3rem;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin-top: 30px;
 }
 
