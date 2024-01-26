@@ -1,5 +1,7 @@
 "use strict";
 /* ************************ CHECK URL ************************ */
+const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
+/* const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/forTests"); */
 
 // date fields fill
 const currentDateInput = document.querySelector(".current-date");
@@ -166,6 +168,10 @@ getStatsForm.addEventListener("submit", async (e) => {
         })  
     });
 
+    if (document.querySelector(".salary-sum")) {
+        document.querySelector(".salary-sum").remove();
+    }
+
     const salaryForPeriodContainer = createElement("div", "salary-sum");
     const salaryForPeriodTitle = createElement("span", "salary-sum-title");
     const salaryForPeriodValue = createElement("span", "salary-sum-value");
@@ -325,9 +331,6 @@ function dateToStr(date) {
 }
 
 // Асинхронные операции
-const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
-/* const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/forTests"); */
-
 async function sendStats(stats) {
 
     const {monthId, ...data} = stats;
