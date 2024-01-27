@@ -258,6 +258,7 @@ function deleteDayFromDB(e) {
   const chosenDate = {
     monthId: dayInfoContainer.querySelector(".date").innerHTML.split(".")[1],
     day: dayInfoContainer.querySelector(".date").innerHTML.split(".")[0],
+    salary: Number.parseInt(dayInfoContainer.querySelector(".salary").innerHTML)
   };
   const emtyObj = {};
   emtyObj[`day_${chosenDate.day}`] = {};
@@ -266,6 +267,10 @@ function deleteDayFromDB(e) {
   closeModalBtn.onclick = cancelBtn.onclick = closeModal;
 
   confirmBtn.onclick = () => {
+    // correct sum
+    const totalSumContainer = document.querySelector(".salary-sum-value");
+    totalSumContainer.innerHTML = `${Number.parseInt(totalSumContainer.innerHTML) - chosenDate.salary} ₽`
+
     patchStats(monthIdtoId.get(chosenDate.monthId), emtyObj);
     closeModal();
     dayInfoContainer.remove();
