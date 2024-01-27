@@ -1,53 +1,52 @@
 .form-main {
+  .income {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .income {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    
-        input {
-            width: 30%;
-            margin-left: 30px;
-        }
+    input {
+      width: 30%;
+      margin-left: 30px;
+    }
+  }
+
+  .avg-check {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .condition-question {
+      text-align: center;
     }
 
-    .avg-check {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        .condition-question {
-            text-align: center;
-        }
-    
-        .radio-main {
-            display: flex;
-            justify-content: space-around;
-        }
-    
-        .radio-optional {
-            display: flex;
-            justify-content: space-between;
-        }
+    .radio-main {
+      display: flex;
+      justify-content: space-around;
     }
 
-    .feedbacks {
-        display: flex;
-        flex-direction: column;
-    
-        &-title {
-            text-align: center;
-        }
-
-        .input-container {
-            margin-top: 15px;
-            input {
-                width: 60px;
-                margin: 0 30px;
-            }
-    
-            display: flex;
-            justify-content: center;
-        }
+    .radio-optional {
+      display: flex;
+      justify-content: space-between;
     }
+  }
+
+  .feedbacks {
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      text-align: center;
+    }
+
+    .input-container {
+      margin-top: 15px;
+      input {
+        width: 60px;
+        margin: 0 30px;
+      }
+
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

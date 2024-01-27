@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,27 +9,6 @@
     <title>Калькулятор ЗП</title>
   </head>
   <body>
-    <div class="modal">
-      <div class="modal-content">
-        <button class="modal-close-btn">
-          <img class="modal-close-btn" src="images/cross-svgrepo-com.svg" />
-        </button>
-
-        <img src="/images/face-surprise-svgrepo-com.svg">
-        <p class="modal-text">
-          Данные за этот день будут удалены. <br> Вы тут?
-        </p>
-        <div class="modal-buttons-contaner">
-          <button>
-            Отмена
-          </button>
-          <button>
-            ОК
-          </button>
-        </div>
-      </div>
-    </div>
-
     <div class="wrapper">
       <form class="form-main form">
         <input required class="current-date" type="date" />
@@ -47,7 +26,7 @@
 
         <!-- Ср чек -->
         <fieldset class="avg-check">
-          <span class="condition-question"> Средний чек больше 450 ₽? </span>
+          <p class="condition-question">Средний чек больше 450 ₽?</p>
 
           <div class="radio-main">
             <label class="radio-label">
@@ -142,121 +121,6 @@
         </fieldset>
         <button class="submit" id="get-stats-btn">Получить данные</button>
       </form>
-
-      <div class="salary-sum">
-        <span class="salary-sum-title">Итого:</span
-        ><span class="salary-sum-value">13150 ₽</span>
-      </div>
-
-      <div class="stats">
-        <div class="month-container">
-          <details>
-            <summary class="main-data">
-              <span class="date">16.01</span><span class="salary">3650 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">120000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">Больше 550 ₽</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">1шт.</span></span
-              >
-              <button class="delete-day-btn">Удалить данные за день</button>
-            </p>
-          </details>
-          <details>
-            <summary class="main-data">
-              <span class="date">20.01</span><span class="salary">3350 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">90000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">451 ₽ — 500 ₽</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">5шт.</span></span
-              >
-            </p>
-          </details>
-          <details>
-            <summary class="main-data">
-              <span class="date">26.01</span><span class="salary">2900 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">50000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">501 ₽ — 550 ₽</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">2шт.</span></span
-              >
-            </p>
-          </details>
-          <details>
-            <summary class="main-data">
-              <span class="date">27.01</span><span class="salary">3250 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">80000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">501 ₽ — 550 ₽</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">3шт.</span></span
-              >
-            </p>
-          </details>
-        </div>
-        <div class="month-container">
-          <details>
-            <summary class="main-data">
-              <span class="date">03.02</span><span class="salary">2960 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">76000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">451 ₽ — 500 ₽</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">0шт.</span></span
-              >
-            </p>
-          </details>
-          <details>
-            <summary class="main-data">
-              <span class="date">06.02</span><span class="salary">2520 ₽</span>
-            </summary>
-            <p class="optional-data">
-              <span class="income"
-                ><span class="income-title">Выручка:</span
-                ><span class="income-value">52000 ₽</span></span
-              ><span class="avg-check"
-                ><span class="avg-check-title">Средний чек:</span
-                ><span class="avg-check-value">Нет</span></span
-              ><span class="feedbacks"
-                ><span class="feedbacks-title">Отзывы:</span
-                ><span class="feedbacks-value">0шт.</span></span
-              >
-            </p>
-          </details>
-        </div>
-      </div>
     </div>
 
     <script src="scripts/script.js"></script>

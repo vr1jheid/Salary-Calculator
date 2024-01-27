@@ -225,12 +225,11 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 7px;
+  gap: 30px;
   width: 330px;
   height: 330px;
   position: relative;
   background-color: #fdf0d5;
-  border: 2px #E76F51 solid;
   border-radius: 7px;
   color: #264653;
 }
@@ -294,6 +293,10 @@ fieldset {
   color: #fdf0d5;
 }
 
+p {
+  margin: 0;
+}
+
 button {
   height: 40px;
 }
@@ -343,6 +346,7 @@ summary {
   align-items: center;
   border-radius: 7px;
   background-color: #264653;
+  color: #fdf0d5;
   gap: 20px;
 }
 .salary-today .salary-value {
@@ -430,7 +434,7 @@ summary {
   display: inline-flex;
   justify-content: space-between;
 }
-.stats .optional-data > * > span:first-child::before {
+.stats .optional-data > * > p:first-child::before {
   content: "•";
 }
 .stats .delete-day-btn {

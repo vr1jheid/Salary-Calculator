@@ -32,6 +32,10 @@ fieldset {
   color: $white;
 }
 
+p {
+  margin: 0;
+}
+
 button {
   height: 40px;
 }
@@ -78,6 +82,7 @@ summary {
   align-items: center;
   border-radius: $border-radius;
   background-color: $dark-blue;
+  color: $white;
   gap: 20px;
 
   .salary-value {
@@ -179,7 +184,7 @@ summary {
     justify-content: space-between;
   }
 
-  .optional-data > * > span:first-child::before {
+  .optional-data > * > p:first-child::before {
     content: "•";
   }
 

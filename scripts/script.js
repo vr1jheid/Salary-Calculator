@@ -1,9 +1,9 @@
 "use strict";
 /* ************************ CHECK URL ************************ */
-/* const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary"); */
-const url = new URL(
+const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
+/* const url = new URL(
   "https://65aa56f4081bd82e1d96b36a.mockapi.io/test/forTests"
-);
+); */
 
 // date fields fill
 const currentDateInput = document.querySelector(".current-date");
@@ -39,6 +39,7 @@ const avgCheck = {
     this.isTrue = false;
   },
 };
+const monthIdtoId = new Map();
 
 // feedbacks count
 feedbacksField.addEventListener("click", (event) => {
@@ -108,17 +109,21 @@ presentorForm.addEventListener("submit", async (e) => {
 
   const statsDiv = createElement("div", "stats");
   statsDiv.addEventListener("click", correctStatStyle);
+  statsDiv.addEventListener("click", deleteDayFromDB);
   presentorForm.after(statsDiv);
 
   if (!filteredStats.length) return;
 
   let salaryForPeriod = 0;
   filteredStats.forEach(({ id, monthId, ...days }) => {
+    monthIdtoId.set(monthId, id);
     const monthDiv = createElement("div", "month-container", statsDiv);
 
     Object.entries(days)
       .sort((a, b) => Number(a[0].slice(-2)) - b[0].slice(-2))
       .forEach(([key, data]) => {
+        if (!data.salary) return;
+
         if (
           Number(monthId) === periodStart.monthId &&
           Number(key.slice(-2)) < periodStart.day
@@ -137,49 +142,37 @@ presentorForm.addEventListener("submit", async (e) => {
         // create summary
         const summaryElem = createElement("summary", "main-data", detailsElem);
 
-        const dateElem = createElement("span", "date", summaryElem);
+        const dateElem = createElement("p", "date", summaryElem);
         dateElem.innerHTML = `${key.slice(-2)}.${monthId}`;
 
-        const salaryElem = createElement("span", "salary", summaryElem);
+        const salaryElem = createElement("p", "salary", summaryElem);
         salaryElem.innerHTML = `${data.salary} ₽`;
         salaryForPeriod += Number(data.salary);
 
         // create p (optional-data)
-        const paragraphElem = createElement("p", "optional-data", detailsElem);
+        const optionalData = createElement("p", "optional-data", detailsElem);
 
         // income
-        const incomeContainer = createElement("span", "income", paragraphElem);
+        const incomeContainer = createElement("p", "income", optionalData);
 
-        const incomeTitle = createElement(
-          "span",
-          "income-title",
-          incomeContainer
-        );
+        const incomeTitle = createElement("p", "income-title", incomeContainer);
         incomeTitle.innerHTML = `Выручка:`;
 
-        const incomeValue = createElement(
-          "span",
-          "income-value",
-          incomeContainer
-        );
+        const incomeValue = createElement("p", "income-value", incomeContainer);
         incomeValue.innerHTML = `${data.income} ₽`;
 
         // avg-check
-        const avgCheckContainer = createElement(
-          "span",
-          "avg-check",
-          paragraphElem
-        );
+        const avgCheckContainer = createElement("p", "avg-check", optionalData);
 
         const avgCheckTitle = createElement(
-          "span",
+          "p",
           "avg-check-title",
           avgCheckContainer
         );
         avgCheckTitle.innerHTML = `Средний чек:`;
 
         const avgCheckValue = createElement(
-          "span",
+          "p",
           "avg-check-value",
           avgCheckContainer
         );
@@ -187,24 +180,31 @@ presentorForm.addEventListener("submit", async (e) => {
 
         // feedbacks
         const feedbacksContainer = createElement(
-          "span",
+          "p",
           "feedbacks",
-          paragraphElem
+          optionalData
         );
 
         const feedbacksTitle = createElement(
-          "span",
+          "p",
           "feedbacks-title",
           feedbacksContainer
         );
         feedbacksTitle.innerHTML = `Отзывы:`;
 
         const feedbacksValue = createElement(
-          "span",
+          "p",
           "feedbacks-value",
           feedbacksContainer
         );
         feedbacksValue.innerHTML = `${data.feedbacks}шт.`;
+
+        const deleteBtn = createElement(
+          "button",
+          "delete-day-btn",
+          optionalData
+        );
+        deleteBtn.innerHTML = "Удалить данные за день";
       });
   });
 
@@ -213,8 +213,8 @@ presentorForm.addEventListener("submit", async (e) => {
   }
 
   const salaryForPeriodContainer = createElement("div", "salary-sum");
-  const salaryForPeriodTitle = createElement("span", "salary-sum-title");
-  const salaryForPeriodValue = createElement("span", "salary-sum-value");
+  const salaryForPeriodTitle = createElement("p", "salary-sum-title");
+  const salaryForPeriodValue = createElement("p", "salary-sum-value");
   salaryForPeriodTitle.innerHTML = "Итого:";
   salaryForPeriodValue.innerHTML = `${salaryForPeriod} ₽`;
 
@@ -243,6 +243,73 @@ presentorForm.addEventListener("submit", async (e) => {
 });
 
 // Functions
+
+function deleteDayFromDB(e) {
+  const target = e.target.closest(".delete-day-btn");
+  if (!target) return;
+  const dayInfoContainer = e.target.closest("details");
+  const modal = createModal();
+  document.body.style.overflow = "hidden";
+  document.body.prepend(modal);
+  const closeModalBtn = modal.querySelector(".modal-close-btn");
+  const cancelBtn = modal.querySelector(".modal-cancel-btn");
+  const confirmBtn = modal.querySelector(".modal-confirm-btn");
+
+  const chosenDate = {
+    monthId: dayInfoContainer.querySelector(".date").innerHTML.split(".")[1],
+    day: dayInfoContainer.querySelector(".date").innerHTML.split(".")[0],
+  };
+  const emtyObj = {};
+  emtyObj[`day_${chosenDate.day}`] = {};
+  console.log(chosenDate);
+  console.log(emtyObj);
+  closeModalBtn.onclick = cancelBtn.onclick = closeModal;
+
+  confirmBtn.onclick = () => {
+    patchStats(monthIdtoId.get(chosenDate.monthId), emtyObj);
+    closeModal();
+    dayInfoContainer.remove();
+  };
+}
+
+function createModal() {
+  const modalContainer = createElement("div", "modal");
+  const modalContent = createElement("div", "modal-content", modalContainer);
+  const modalImg = createElement("img", null, modalContent);
+  modalImg.src = "images/face-surprise-svgrepo-com.svg";
+  const modalText = createElement("p", "modal-text", modalContent);
+  modalText.innerHTML = "Данные за этот день будут удалены. <br> Вы тут?";
+  const modalButtonsContainer = createElement(
+    "div",
+    "modal-buttons-contaner",
+    modalContent
+  );
+  const cancelBtn = createElement(
+    "button",
+    "modal-cancel-btn",
+    modalButtonsContainer
+  );
+  cancelBtn.innerHTML = "Отмена";
+  const confirmBtn = createElement(
+    "button",
+    "modal-confirm-btn",
+    modalButtonsContainer
+  );
+  confirmBtn.innerHTML = "ОК";
+  const closeModalBtn = createElement(
+    "button",
+    "modal-close-btn",
+    modalContent
+  );
+  const closeModalBtnImg = createElement("img", null, closeModalBtn);
+  closeModalBtnImg.src = "images/cross-svgrepo-com.svg";
+  return modalContainer;
+}
+
+function closeModal() {
+  document.querySelector(".modal").remove();
+  document.body.style.overflow = "";
+}
 
 function correctStatStyle(e) {
   const target = e.target.closest("details");
@@ -314,12 +381,8 @@ function showSalary(salary) {
   const salaryContainer = createElement("div", "salary-today");
   collectorForm.after(salaryContainer);
 
-  const salaryTextElem = createElement("span", "salary-text", salaryContainer);
-  const salaryValueElem = createElement(
-    "span",
-    "salary-value",
-    salaryContainer
-  );
+  const salaryTextElem = createElement("p", "salary-text", salaryContainer);
+  const salaryValueElem = createElement("p", "salary-value", salaryContainer);
 
   salaryTextElem.innerHTML = `Зарплата за ${getSelectedDate().day}.${
     getSelectedDate().month
@@ -403,6 +466,7 @@ async function sendStats(stats) {
   const monthStats = await response.json();
   /*     console.log(monthStats); */
   const id = monthStats[0].id;
+  console.log(data);
   patchStats(id, data);
 }
 
