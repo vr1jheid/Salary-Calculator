@@ -16,6 +16,8 @@
         <fieldset class="income">
           <label for="income-today">Выручка за день:</label>
           <input
+            inputmode="numeric"
+            pattern="[0-9]*"
             value="50000"
             required
             min="0"
@@ -91,6 +93,8 @@
               -
             </button>
             <input
+              inputmode="numeric"
+              pattern="[0-9]*"
               value="0"
               min="0"
               type="number"
