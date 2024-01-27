@@ -107,9 +107,12 @@ input, button {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+button:active, input:focus {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
 input:focus {
   border: 3px solid #fdf0d5;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 input[type=date] {
@@ -127,10 +130,6 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #264653 !important;
   margin: 0 auto;
 }
-.current-date:focus {
-  border: 3px solid #2A9D8F;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
 
 .submit {
   padding: 8px 10px;
@@ -142,9 +141,6 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 7px;
   font-weight: 500;
 }
-.submit:active {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
 
 .adjust-btn {
   border-radius: 7px;
@@ -155,9 +151,6 @@ input[type=number]::-webkit-outer-spin-button {
   width: 40px;
   height: 40px;
   border: none;
-}
-.adjust-btn:active {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .form-main .income {
@@ -202,12 +195,85 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0 30px;
 }
 
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*     display: none; */
+}
+.modal::before {
+  content: "";
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  left: 0;
+  top: 0;
+}
+.modal button {
+  background-color: #E76F51;
+  border: none;
+  border-radius: 7px;
+  color: #fdf0d5;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  width: 330px;
+  height: 330px;
+  position: relative;
+  background-color: #fdf0d5;
+  border: 2px #E76F51 solid;
+  border-radius: 7px;
+  color: #264653;
+}
+.modal-content img {
+  width: 90px;
+  height: 90px;
+  display: block;
+}
+.modal-text {
+  font-size: 2.5rem;
+  text-align: center;
+}
+.modal-close-btn {
+  width: 40px;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.modal-close-btn img {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.modal-buttons-contaner {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.modal-buttons-contaner button {
+  height: 40px;
+  width: 110px;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   font-size: 62.5%;
+  touch-action: manipulation;
 }
 
 body {
@@ -225,15 +291,18 @@ fieldset {
   border-radius: 7px;
   background-color: #264653;
   margin: 0;
+  color: #fdf0d5;
+}
+
+button {
+  height: 40px;
 }
 
 .wrapper {
-  width: 390px;
+  max-width: 390px;
   margin: 0 auto;
   padding: 20px 10px;
   padding-top: 50px;
-  color: #fdf0d5;
-  touch-action: manipulation;
 }
 @media (max-width: 600px) {
   .wrapper {
@@ -320,13 +389,19 @@ summary {
 }
 .stats .main-data {
   width: 100%;
+  height: 40px;
   display: inline-flex;
   color: #264653;
+  align-items: center;
 }
-.stats .main-data .date, .stats .main-data .salary {
+.stats .main-data .date,
+.stats .main-data .salary {
   padding: 3px 20px;
   width: 50%;
-  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .stats .main-data .date {
   background-color: #E9C46A;
@@ -358,6 +433,16 @@ summary {
 .stats .optional-data > * > span:first-child::before {
   content: "•";
 }
+.stats .delete-day-btn {
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  margin-top: 10px;
+  border: 2px #264653 solid;
+  background-color: #fdf0d5;
+  color: #264653;
+  padding: 5px;
+}
 
 .salary-sum {
   width: 100%;
@@ -368,4 +453,5 @@ summary {
   justify-content: space-around;
   padding: 20px;
   margin-top: 30px;
+  color: #fdf0d5;
 }/*# sourceMappingURL=styles.css.map */

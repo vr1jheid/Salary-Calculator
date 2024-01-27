@@ -3,191 +3,206 @@
 @import "radio";
 @import "inputs";
 @import "main_form";
+@import "modal";
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%
+  font-size: 62.5%;
+  touch-action: manipulation;
 }
 
 body {
-    font-size: 2.2rem;
-    font-family: 'Roboto', sans-serif;
+  font-size: 2.2rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 fieldset {
-    border: none;
-    padding: 20px 20px;
-    border-radius: $border-radius;
-    background-color: $dark-blue;
-    margin: 0;
+  border: none;
+  padding: 20px 20px;
+  border-radius: $border-radius;
+  background-color: $dark-blue;
+  margin: 0;
+  color: $white;
+}
+
+button {
+  height: 40px;
 }
 
 .wrapper {
-    @media (max-width: 600px) {
-        width: 100vw;
-    }
+  @media (max-width: 600px) {
+    width: 100vw;
+  }
 
-    @media (max-width: 321px) {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    width: 390px;
-    margin: 0 auto;
-    padding: 20px 10px;
-    padding-top: 50px;
-    color: $white;
-    touch-action: manipulation;
+  @media (max-width: 321px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  padding-top: 50px;
 }
 
-summary::marker{
-    content: "";
+summary::marker {
+  content: "";
 }
 
 summary::-webkit-details-marker {
-    display: none;
+  display: none;
 }
-  
+
 summary {
-    list-style: none;
+  list-style: none;
 }
-  
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .salary-today {
-    padding: 20px;
-    width: 100%;
-    margin-top: 20px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: $border-radius;
-    background-color: $dark-blue;
-    gap: 20px;
+  padding: 20px;
+  width: 100%;
+  margin-top: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: $border-radius;
+  background-color: $dark-blue;
+  gap: 20px;
 
-    .salary-value {
-        font-size: 3rem;
-    }
+  .salary-value {
+    font-size: 3rem;
+  }
 }
 
 .stats-for-period {
-    margin-top: 50px;
-    padding-top: 50px;
-    border-top: 5px solid $dark-blue;
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 5px solid $dark-blue;
 
-    h2 {
-        margin: 0 auto;
-        color: $dark-blue;
-        font-size: 3.3rem;
-        font-weight: 500;
-        text-align: center;
-    }
+  h2 {
+    margin: 0 auto;
+    color: $dark-blue;
+    font-size: 3.3rem;
+    font-weight: 500;
+    text-align: center;
+  }
 }
 
 .dates-selection {
-    display: flex;
-    flex-direction: column;
-    border: none;
-    gap: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  gap: 20px;
+  width: 100%;
 
-    .period-input-block {
-        display: inline-flex;
-        justify-content: space-between;
-        align-items: center;
+  .period-input-block {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
 
-        label {
-            width: 30%;
-        }
-
-        input {
-            width: 60%;
-        }
+    label {
+      width: 30%;
     }
 
+    input {
+      width: 60%;
+    }
+  }
 }
 
-
-
 .stats {
-    details {
-        margin-bottom: 8px;
+  details {
+    margin-bottom: 8px;
+  }
+
+  .month-container {
+    padding: 10px;
+  }
+
+  .main-data {
+    width: 100%;
+    height: 40px;
+    display: inline-flex;
+    color: $dark-blue;
+    align-items: center;
+    .date,
+    .salary {
+      padding: 3px 20px;
+      width: 50%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .month-container{
-        padding: 10px;
+    .date {
+      background-color: $browny-yellow;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
     }
 
-    .main-data {
-        width: 100%;
-        display: inline-flex;
-        color: $dark-blue;
-        .date, .salary {
-            padding: 3px 20px;
-            width: 50%;
-            text-align: center;
-        }
-
-        .date {
-            background-color: $browny-yellow;
-            border-top-left-radius: $border-radius;
-            border-bottom-left-radius: $border-radius;
-
-        }
-
-        .salary {
-            background-color: $red-sand;
-            border-top-right-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
-        }
+    .salary {
+      background-color: $red-sand;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
+  }
 
-    .optional-data {
-        color: $dark-blue;
-        width: 100%;
+  .optional-data {
+    color: $dark-blue;
+    width: 100%;
 
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 7px;
+    background-color: $siena;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
 
+  .optional-data > * {
+    display: inline-flex;
+    justify-content: space-between;
+  }
 
-        margin: 0;
-        margin-bottom: 20px;
-        padding: 10px 10px;
-        display: inline-flex;
-        flex-direction: column;
-        gap: 7px;
-        background-color: $siena;
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
-    }
+  .optional-data > * > span:first-child::before {
+    content: "•";
+  }
 
-    .optional-data > * {
-        display: inline-flex;
-        justify-content: space-between;
-    }
-
-    .optional-data > * > span:first-child::before {
-        content: "•";
-    }
+  .delete-day-btn {
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    margin-top: 10px;
+    border: 2px $dark-blue solid;
+    background-color: $white;
+    color: $dark-blue;
+    padding: 5px;
+  }
 }
 
 .salary-sum {
-    width: 100%;
-    background-color: $dark-blue;
-    border-radius: $border-radius;
-    font-size: 3.3rem;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    margin-top: 30px;
+  width: 100%;
+  background-color: $dark-blue;
+  border-radius: $border-radius;
+  font-size: 3.3rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin-top: 30px;
+  color: $white;
 }
-

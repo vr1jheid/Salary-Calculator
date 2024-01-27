@@ -14,9 +14,12 @@ input, button {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+button:active, input:focus {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
 input:focus {
     border: 3px solid $white;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 
@@ -37,11 +40,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .current-date {
     background-color: $dark-blue !important;
     margin: 0 auto;
-
-    &:focus {
-        border: 3px solid $light-blue;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    }
 }
 
 .submit {
@@ -53,10 +51,8 @@ input[type="number"]::-webkit-outer-spin-button {
     color: $white;
     border-radius: $border-radius;
     font-weight: 500;
-    &:active {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    }
 }
+
 
 .adjust-btn {
     border-radius: $border-radius;
@@ -67,10 +63,4 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 40px;
     height: 40px;
     border:none;
-
-    &:active {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
-    }
 }
-
