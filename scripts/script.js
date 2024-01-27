@@ -317,10 +317,7 @@ function closeModal() {
 }
 
 function correctStatStyle(e) {
-  // Костыль - пофиксить
-  if (e.target.closest(".delete-day-btn")) return;
-  //
-  const target = e.target.closest("details");
+  const target = e.target.closest(".main-data");
   if (!target) return;
   console.log("here");
   const date = target.querySelector(".date");
