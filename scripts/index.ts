@@ -1,4 +1,34 @@
 "use strict";
+// Types and Interfaces
+enum AvgCheckValue {
+  low,
+  mid,
+  high,
+}
+
+interface IAvgCheck {
+  isTrue: boolean;
+  value: AvgCheckValue | null;
+  set(value: AvgCheckValue): void;
+  reset(): void;
+}
+
+interface IStatsFromForm {
+  income: string;
+  avgCheck: Pick<IAvgCheck, "isTrue" | "value">;
+  feedbacks: string;
+  salary: string;
+}
+
+interface IStatsToSend {
+  monthId: string;
+  [key: string]: IStatsFromForm | string;
+}
+
+interface IFetchedStats extends IStatsToSend {
+  id: string;
+}
+
 /* ************************ CHECK URL ************************ */
 const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
 /* const url = new URL(
@@ -6,31 +36,43 @@ const url = new URL("https://65aa56f4081bd82e1d96b36a.mockapi.io/test/salary");
 ); */
 
 // date fields fill
-const currentDateInput = document.querySelector(".current-date");
+const currentDateInput = document.querySelector(
+  ".current-date"
+) as HTMLInputElement;
+const periodStartDateInput = document.querySelector(
+  "#period-start-input"
+) as HTMLInputElement;
+const periodEndDateInput = document.querySelector(
+  "#period-end-input"
+) as HTMLInputElement;
+
 currentDateInput.value = dateToStr(new Date());
-const periodStartDateInput = document.querySelector("#period-start-input");
-const periodEndDateInput = document.querySelector("#period-end-input");
 const currentDate = getSelectedDate();
 periodStartDateInput.value = dateToStr(
-  new Date(currentDate.year, currentDate.month - 1, 1)
+  new Date(Number(currentDate.year), Number(currentDate.month) - 1, 1)
 );
+
 periodEndDateInput.value = dateToStr(
-  new Date(currentDate.year, currentDate.month, 0)
+  new Date(Number(currentDate.year), Number(currentDate.month), 0)
 );
 
 // main variables
-const collectorForm = document.querySelector(".form-main");
-const avgCheckField = document.querySelector(".avg-check");
-const feedbacksField = document.querySelector(".feedbacks");
-const incomeInput = document.querySelector("#income-today");
-const feedbacksInput = document.querySelector("#feedbacks-input");
-const radioOptionalArea = document.querySelector(".radio-optional");
-const submitBtn = document.querySelector(".submit");
+const collectorForm = document.querySelector(".form-main") as HTMLFormElement;
+const avgCheckField = document.querySelector(".avg-check") as HTMLInputElement;
+const feedbacksField = document.querySelector(".feedbacks") as HTMLInputElement;
+const incomeInput = document.querySelector("#income-today") as HTMLInputElement;
+const feedbacksInput = document.querySelector(
+  "#feedbacks-input"
+) as HTMLInputElement;
+const radioOptionalArea = document.querySelector(
+  ".radio-optional"
+) as HTMLElement;
+const submitBtn = document.querySelector(".submit") as HTMLButtonElement;
 
-const avgCheck = {
+const avgCheck: IAvgCheck = {
   isTrue: false,
   value: null,
-  set(value) {
+  set(value: AvgCheckValue) {
     this.value = value;
     this.isTrue = true;
   },
@@ -42,55 +84,63 @@ const avgCheck = {
 const monthIdtoId = new Map();
 
 // feedbacks count
-feedbacksField.addEventListener("click", (event) => {
-  const target = event.target.closest(".adjust-btn");
-  if (!target) return;
+feedbacksField.addEventListener("click", (event: MouseEvent) => {
+  const target = event.target as HTMLElement;
+  const button = target.closest(".adjust-btn");
 
-  if (target.getAttribute("id") === "increase-btn") {
-    feedbacksInput.value = +feedbacksInput.value + 1;
+  if (!button) return;
+
+  if (button.getAttribute("id") === "increase-btn") {
+    feedbacksInput.value = (Number(feedbacksInput.value) + 1).toString();
   }
   if (
-    target.getAttribute("id") === "decrease-btn" &&
-    feedbacksInput.value > 0
+    button.getAttribute("id") === "decrease-btn" &&
+    Number(feedbacksInput.value) > 0
   ) {
-    feedbacksInput.value = +feedbacksInput.value - 1;
+    feedbacksInput.value = (Number(feedbacksInput.value) - 1).toString();
   }
 });
 
 // radio handlers
-const radioYesOpt = document.querySelector("#radio-true");
-const radioNoOpt = document.querySelector("#radio-false");
+const radioYesOpt = document.querySelector("#radio-true") as HTMLInputElement;
+const radioNoOpt = document.querySelector("#radio-false") as HTMLInputElement;
 radioYesOpt.addEventListener("change", radioMainHandler);
 radioNoOpt.addEventListener("change", radioMainHandler);
 
-collectorForm.addEventListener("submit", (event) => {
+collectorForm.addEventListener("submit", (event: SubmitEvent) => {
   event.preventDefault();
   const stats = getTodayStats();
-  console.log(avgCheck);
-  console.log(stats);
-  //showSalary(stats[`day_${getSelectedDate().day}`].salary);
-  showSalary(stats[Object.keys(stats)[1]].salary);
+  const statsForToday = stats[`day_${getSelectedDate().day}`] as IStatsFromForm;
+  showSalary(statsForToday.salary);
+  /*   showSalary(stats[Object.keys(stats)[1]].salary); */
   sendStats(stats);
 });
 
 // gettings statistics
-const presentorForm = document.querySelector(".stats-for-period");
+const presentorForm = document.querySelector(
+  ".stats-for-period"
+) as HTMLFormElement;
 
-presentorForm.addEventListener("submit", async (e) => {
+presentorForm.addEventListener("submit", async (e: SubmitEvent) => {
   e.preventDefault();
 
-  const startValue = document
-    .querySelector("#period-start-input")
-    .value.split("-");
-  const endValue = document.querySelector("#period-end-input").value.split("-");
+  const periodStartInput = document.querySelector(
+    "#period-start-input"
+  ) as HTMLInputElement;
+  const periodEndInput = document.querySelector(
+    "#period-end-input"
+  ) as HTMLInputElement;
+
+  const periodStartArr = periodStartInput.value.split("-");
+  const periodEndArr = periodEndInput.value.split("-");
 
   const periodStart = {
-    monthId: +startValue[1],
-    day: +startValue[2],
+    monthId: Number(periodStartArr[1]),
+    day: Number(periodStartArr[2]),
   };
   const periodEnd = {
-    monthId: +endValue[1],
-    day: +endValue[2],
+    monthId: Number(periodEndArr[1]),
+    day: Number(periodEndArr[2]),
   };
 
   const fetchStartTime = Date.now();
@@ -98,13 +148,13 @@ presentorForm.addEventListener("submit", async (e) => {
   const dataFetchedTime = Date.now();
 
   const filteredStats = stats.filter(
-    (elem) =>
+    (elem: IFetchedStats) =>
       Number.parseInt(elem.monthId) >= periodStart.monthId &&
       Number.parseInt(elem.monthId) <= periodEnd.monthId
   );
 
   if (document.querySelector(".stats")) {
-    document.querySelector(".stats").remove();
+    document.querySelector(".stats")?.remove();
   }
 
   const statsDiv = createElement("div", "stats");
@@ -115,13 +165,15 @@ presentorForm.addEventListener("submit", async (e) => {
   if (!filteredStats.length) return;
 
   let salaryForPeriod = 0;
-  filteredStats.forEach(({ id, monthId, ...days }) => {
+  filteredStats.forEach(({ id, monthId, ...days }: IFetchedStats) => {
     monthIdtoId.set(monthId, id);
     const monthDiv = createElement("div", "month-container", statsDiv);
 
     Object.entries(days)
-      .sort((a, b) => Number(a[0].slice(-2)) - b[0].slice(-2))
+      .sort((a, b) => Number(a[0].slice(-2)) - Number(b[0].slice(-2)))
       .forEach(([key, data]) => {
+        if (typeof data === "string") return;
+
         if (!data.salary) return;
 
         if (
@@ -209,7 +261,7 @@ presentorForm.addEventListener("submit", async (e) => {
   });
 
   if (document.querySelector(".salary-sum")) {
-    document.querySelector(".salary-sum").remove();
+    document.querySelector(".salary-sum")?.remove();
   }
 
   const salaryForPeriodContainer = createElement("div", "salary-sum");
@@ -244,32 +296,47 @@ presentorForm.addEventListener("submit", async (e) => {
 
 // Functions
 
-function deleteDayFromDB(e) {
-  const target = e.target.closest(".delete-day-btn");
-  if (!target) return;
-  const dayInfoContainer = e.target.closest("details");
+function deleteDayFromDB(e: MouseEvent) {
+  const target = e.target as HTMLElement;
+  const deleteDayBtn = target.closest(".delete-day-btn") as HTMLButtonElement;
+  if (!deleteDayBtn) return;
+  const dayInfoContainer = target.closest("details") as HTMLElement;
   const modal = createModal();
   document.body.style.overflow = "hidden";
   document.body.prepend(modal);
-  const closeModalBtn = modal.querySelector(".modal-close-btn");
-  const cancelBtn = modal.querySelector(".modal-cancel-btn");
-  const confirmBtn = modal.querySelector(".modal-confirm-btn");
+  const closeModalBtn = modal.querySelector(
+    ".modal-close-btn"
+  ) as HTMLButtonElement;
+  const cancelBtn = modal.querySelector(
+    ".modal-cancel-btn"
+  ) as HTMLButtonElement;
+  const confirmBtn = modal.querySelector(
+    ".modal-confirm-btn"
+  ) as HTMLButtonElement;
 
   const chosenDate = {
-    monthId: dayInfoContainer.querySelector(".date").innerHTML.split(".")[1],
-    day: dayInfoContainer.querySelector(".date").innerHTML.split(".")[0],
-    salary: Number.parseInt(dayInfoContainer.querySelector(".salary").innerHTML)
+    monthId: dayInfoContainer.querySelector(".date")?.innerHTML.split(".")[1],
+    day: dayInfoContainer.querySelector(".date")?.innerHTML.split(".")[0],
+    salary: Number.parseInt(
+      dayInfoContainer.querySelector(".salary")!.innerHTML
+    ),
   };
-  const emtyObj = {};
+  const emtyObj: {
+    [k: string]: {};
+  } = {};
+
   emtyObj[`day_${chosenDate.day}`] = {};
-  console.log(chosenDate);
-  console.log(emtyObj);
+
   closeModalBtn.onclick = cancelBtn.onclick = closeModal;
 
   confirmBtn.onclick = () => {
     // correct sum
-    const totalSumContainer = document.querySelector(".salary-sum-value");
-    totalSumContainer.innerHTML = `${Number.parseInt(totalSumContainer.innerHTML) - chosenDate.salary} ₽`
+    const totalSumContainer = document.querySelector(
+      ".salary-sum-value"
+    ) as HTMLElement;
+    totalSumContainer.innerHTML = `${
+      Number.parseInt(totalSumContainer.innerHTML) - chosenDate.salary
+    } ₽`;
 
     patchStats(monthIdtoId.get(chosenDate.monthId), emtyObj);
     closeModal();
@@ -280,7 +347,7 @@ function deleteDayFromDB(e) {
 function createModal() {
   const modalContainer = createElement("div", "modal");
   const modalContent = createElement("div", "modal-content", modalContainer);
-  const modalImg = createElement("img", null, modalContent);
+  const modalImg = createElement("img", null, modalContent) as HTMLImageElement;
   modalImg.src = "images/face-surprise-svgrepo-com.svg";
   const modalText = createElement("p", "modal-text", modalContent);
   modalText.innerHTML = "Данные за этот день будут удалены. <br> Вы тут?";
@@ -306,24 +373,28 @@ function createModal() {
     "modal-close-btn",
     modalContent
   );
-  const closeModalBtnImg = createElement("img", null, closeModalBtn);
+  const closeModalBtnImg = createElement(
+    "img",
+    null,
+    closeModalBtn
+  ) as HTMLImageElement;
   closeModalBtnImg.src = "images/cross-svgrepo-com.svg";
   return modalContainer;
 }
 
 function closeModal() {
-  document.querySelector(".modal").remove();
+  document?.querySelector(".modal")?.remove();
   document.body.style.overflow = "";
 }
 
-function correctStatStyle(e) {
-  const target = e.target.closest(".main-data");
-  if (!target) return;
-  console.log("here");
-  const date = target.querySelector(".date");
-  const salary = target.querySelector(".salary");
-
-  if (!target.hasAttribute("open")) {
+function correctStatStyle(e: MouseEvent) {
+  const target = e.target as HTMLElement;
+  const summaryElem = target.closest(".main-data");
+  if (!summaryElem) return;
+  const date = summaryElem.querySelector(".date") as HTMLParagraphElement;
+  const salary = summaryElem.querySelector(".salary") as HTMLParagraphElement;
+  if (!summaryElem.closest("details")?.hasAttribute("open")) {
+    console.log("no attribute");
     date.style.borderBottomLeftRadius = "0px";
     salary.style.borderBottomRightRadius = "0px";
   } else {
@@ -332,20 +403,24 @@ function correctStatStyle(e) {
   }
 }
 
-function getAvgCheckByLabel(label) {
+function getAvgCheckByLabel(label: AvgCheckValue | null) {
   switch (label) {
-    case "high":
+    case AvgCheckValue.high:
       return "Больше 550 ₽";
-    case "mid":
+    case AvgCheckValue.mid:
       return "501 ₽ — 550 ₽";
-    case "low":
+    case AvgCheckValue.low:
       return "451 ₽ — 500 ₽";
     case null:
       return "Нет";
   }
 }
 
-function createElement(tag, className, parrent) {
+function createElement(
+  tag: string,
+  className?: string | null,
+  parrent?: HTMLElement | null
+) {
   const elem = document.createElement(tag);
   if (className) elem.classList.add(className);
   if (parrent) parrent.append(elem);
@@ -353,18 +428,18 @@ function createElement(tag, className, parrent) {
 }
 
 function getTodayStats() {
-  const date = getSelectedDate();
+  const { month, day } = getSelectedDate();
   const salary = Math.floor(calculateSalary());
   const { isTrue, value } = avgCheck;
 
-  const statsToday = {
-    monthId: date.month,
+  const statsToday: IStatsToSend = {
+    monthId: month,
   };
-  statsToday[`day_${date.day}`] = {
+  statsToday[`day_${day}`] = {
     income: incomeInput.value,
     avgCheck: { isTrue, value },
     feedbacks: feedbacksInput.value,
-    salary: salary,
+    salary: salary.toString(),
   };
 
   return statsToday;
@@ -379,9 +454,9 @@ function getSelectedDate() {
   };
 }
 
-function showSalary(salary) {
+function showSalary(salary: string) {
   if (document.querySelector(".salary-today")) {
-    document.querySelector(".salary-today").remove();
+    document.querySelector(".salary-today")?.remove();
   }
 
   const salaryContainer = createElement("div", "salary-today");
@@ -414,21 +489,27 @@ function calculateSalary() {
     return result;
   }
 
-  const avgCheckLow = document.querySelector("#radio-optional-low");
-  const avgCheckMid = document.querySelector("#radio-optional-mid");
-  const avgCheckHigh = document.querySelector("#radio-optional-high");
+  const avgCheckLow = document.querySelector(
+    "#radio-optional-low"
+  ) as HTMLInputElement;
+  const avgCheckMid = document.querySelector(
+    "#radio-optional-mid"
+  ) as HTMLInputElement;
+  const avgCheckHigh = document.querySelector(
+    "#radio-optional-high"
+  ) as HTMLInputElement;
 
   if (avgCheckLow.checked) {
     result += 200;
-    avgCheck.set("low");
+    avgCheck.set(AvgCheckValue.low);
   }
   if (avgCheckMid.checked) {
     result += 300;
-    avgCheck.set("mid");
+    avgCheck.set(AvgCheckValue.mid);
   }
   if (avgCheckHigh.checked) {
     result += 400;
-    avgCheck.set("high");
+    avgCheck.set(AvgCheckValue.high);
   }
   return result;
 }
@@ -437,7 +518,7 @@ function radioMainHandler() {
   radioOptionalArea.classList.toggle("hidden");
 }
 
-function dateToStr(date) {
+function dateToStr(date: Date) {
   const currentDay =
     date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
   const currentMonth =
@@ -449,11 +530,10 @@ function dateToStr(date) {
 }
 
 // Асинхронные операции
-async function sendStats(stats) {
+async function sendStats(stats: IStatsToSend) {
   const { monthId, ...data } = stats;
-  /*     console.log(data); */
   const searchUrl = new URL(url.toString());
-  searchUrl.searchParams.append("monthId", monthId);
+  searchUrl.searchParams.append("monthId", String(monthId));
 
   // Ищем есть ли в базе месяц с таким номером
   const response = await fetch(searchUrl, {
@@ -461,22 +541,18 @@ async function sendStats(stats) {
     headers: { "content-type": "application/json" },
   });
 
-  /*     console.log(response); */
-
   if (!response.ok) {
     //Если нет то создаем объект с этим monthId
     createNewMonth(stats);
     return;
   }
   //Если есть, то берем его id (не monthId!) и патчим по этому id
-  const monthStats = await response.json();
-  /*     console.log(monthStats); */
-  const id = monthStats[0].id;
-  console.log(data);
+  const monthStats: IFetchedStats[] = await response.json();
+  const id: string = monthStats[0].id;
   patchStats(id, data);
 }
 
-async function createNewMonth(stats) {
+async function createNewMonth(stats: IStatsToSend) {
   const params = {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -486,7 +562,7 @@ async function createNewMonth(stats) {
   fetch(url, params);
 }
 
-async function patchStats(id, stats) {
+async function patchStats(id: string, stats: IStatsFromForm | {}) {
   const params = {
     method: "PUT",
     headers: { "content-type": "application/json" },
@@ -502,6 +578,6 @@ async function getAllStats() {
     method: "GET",
     headers: { "content-type": "application/json" },
   });
-  const stats = await response.json();
+  const stats: IFetchedStats[] = await response.json();
   return stats;
 }
